@@ -16,10 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path ="/api/v1/prescription")
 public class RestAPIController {
-
-    @Autowired
-    private RestTemplate restTemplate;
-
+    
     private final PrescriptionService prescriptionService;
 
     public RestAPIController(PrescriptionService prescriptionService) {
@@ -32,12 +29,4 @@ public class RestAPIController {
         return prescriptionService.getAllPrescriptions();
     }
 
-    @GetMapping("/consume_api")
-    public List<Object> getPrescriptions() {
-
-        String url = "http://localhost:8080/api/v1/prescription";
-
-        Object[] prescription = restTemplate.getForObject(url, Object[].class);
-        return Arrays.asList(prescription);
-    }
 }
