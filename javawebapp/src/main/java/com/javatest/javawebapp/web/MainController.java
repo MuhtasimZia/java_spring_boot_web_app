@@ -6,13 +6,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Calendar;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -32,29 +30,18 @@ public class MainController {
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        model.addAttribute("listPrescriptions", prescriptionService.getAllPrescriptionsByDate(month));
+        model.addAttribute("listPrescriptions", prescriptionService.getAllPrescriptionsByDate(year, month));
         return "index";
     }
 
     @GetMapping("/showPrescription")
-    public String showPage(Model model, @Param("months") Integer months) {
-        int month;
-        if(months == 0){
-            month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        }
-        else {
-            month = months;
-        }
-        model.addAttribute("listPrescriptions", prescriptionService.getAllPrescriptionsByDate(month));
+    public String showPage(Model model, @RequestParam Integer years, @RequestParam Integer months) {
+        model.addAttribute("listPrescriptions", prescriptionService.getAllPrescriptionsByDate(years, months));
         return "index";
     }
 
-    @GetMapping("/api/v1/prescription")
-    public String viewPage(Model model) {
-        model.addAttribute("listPrescriptions", prescriptionService.getAllPrescriptions());
-        return "list";
-    }
 
     @GetMapping("/api/v1/report")
     public String countPage(Model model) {

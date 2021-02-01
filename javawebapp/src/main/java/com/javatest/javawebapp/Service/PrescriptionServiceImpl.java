@@ -25,8 +25,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     }
 
     @Override
-    public List<Prescription> getAllPrescriptionsByDate(Integer month) {
-        var prescription = (List<Prescription>) prescriptionRepository.getAllPrescriptionsByDate(month);
+    public List<Prescription> getAllPrescriptionsByDate(Integer year, Integer month) {
+        var prescription = (List<Prescription>) prescriptionRepository.getAllPrescriptionsByDate(year, month);
         return prescription;
     }
 

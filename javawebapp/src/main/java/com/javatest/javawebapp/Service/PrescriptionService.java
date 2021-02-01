@@ -10,7 +10,7 @@ public interface PrescriptionService {
 
     List<Prescription> getAllPrescriptions();
 
-    List<Prescription> getAllPrescriptionsByDate(Integer month);
+    List<Prescription> getAllPrescriptionsByDate(Integer year, Integer month);
 
     List<Map<LocalDate, Integer>> getPrescriptionCountByDay();
 
