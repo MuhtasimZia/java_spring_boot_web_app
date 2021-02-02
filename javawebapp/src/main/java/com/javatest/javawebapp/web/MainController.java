@@ -1,8 +1,10 @@
 package com.javatest.javawebapp.web;
 
+import com.javatest.javawebapp.Service.ParsingService;
 import com.javatest.javawebapp.Service.PrescriptionService;
 import com.javatest.javawebapp.model.Prescription;
-import org.springframework.data.repository.query.Param;
+import com.javatest.javawebapp.model.api;
+import org.assertj.core.util.Arrays;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +20,21 @@ public class MainController {
 
     private final PrescriptionService prescriptionService;
 
-    public MainController(PrescriptionService prescriptionService) {
+    private final ParsingService parsingService;
+
+    private static final String url = "https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=341248";
+
+    public MainController(PrescriptionService prescriptionService, ParsingService parsingService) {
         super();
         this.prescriptionService = prescriptionService;
+        this.parsingService = parsingService;
+    }
+
+    @GetMapping("/api/v1/consume_api")
+    public String getApi(Model model) {
+        api consume_api = (api) parsingService.parse(url);
+        model.addAttribute("api_list", consume_api);
+        return "api";
     }
 
     @GetMapping("/login")

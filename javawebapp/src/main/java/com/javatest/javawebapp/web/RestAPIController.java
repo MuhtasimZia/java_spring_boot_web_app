@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path ="/api/v1/prescription")
 public class RestAPIController {
-    
+
     private final PrescriptionService prescriptionService;
 
     public RestAPIController(PrescriptionService prescriptionService) {
