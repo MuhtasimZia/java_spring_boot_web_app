@@ -30,7 +30,7 @@ public class MainController {
         this.parsingService = parsingService;
     }
 
-    @GetMapping("/api/v1/consume_api")
+    @GetMapping("/consume_api")
     public String getApi(Model model) {
         api consume_api = (api) parsingService.parse(url);
         model.addAttribute("api_list", consume_api);
@@ -50,6 +50,14 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/list")
+    public String getAllPrescriptions(Model model) {
+
+        model.addAttribute("listPrescriptions", prescriptionService.getAllPrescriptions());
+        return "list";
+    }
+
+
     @GetMapping("/showPrescription")
     public String showPage(Model model, @RequestParam Integer years, @RequestParam Integer months) {
         model.addAttribute("listPrescriptions", prescriptionService.getAllPrescriptionsByDate(years, months));
@@ -57,7 +65,7 @@ public class MainController {
     }
 
 
-    @GetMapping("/api/v1/report")
+    @GetMapping("/report")
     public String countPage(Model model) {
         model.addAttribute("list_Date_wise_Prescriptions", prescriptionService.getPrescriptionCountByDay());
         return "report";

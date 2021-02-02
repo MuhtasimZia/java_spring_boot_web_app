@@ -24,7 +24,7 @@ public class Prescription {
     private String lastName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @PastOrPresent(message = "prescription date should be less than current date!!")
+    @PastOrPresent(message = "prescription date should be less than or equal current date!!")
     private LocalDate prescription_date;
 
     @NotNull(message = "age can not be null!!")
